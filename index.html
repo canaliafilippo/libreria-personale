@@ -133,6 +133,7 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      white-space: nowrap;
     }
 
     .app-badge-dot {
@@ -569,6 +570,7 @@
       align-items: center;
       gap: 8px;
       margin-bottom: 4px;
+      flex-wrap: wrap;
     }
 
     .price-value {
@@ -918,6 +920,9 @@
       align-items: center;
       font-size: 11px;
       color: rgba(245,236,217,0.75);
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .splash-loader {
@@ -939,6 +944,105 @@
       0%   { transform: scale(1);   opacity: 1; }
       50%  { transform: scale(1.35); opacity: 0.6; }
       100% { transform: scale(1);   opacity: 1; }
+    }
+
+    /* --- OTTIMIZZAZIONI SPECIFICHE PER IPHONE / SCHERMI PICCOLI --- */
+    @media (max-width: 600px) {
+      body {
+        padding: 20px 8px;
+      }
+
+      .app-shell {
+        padding: 18px 14px 20px;
+        border-radius: 22px;
+      }
+
+      .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .app-title h1 {
+        font-size: 22px;
+        flex-wrap: wrap;
+      }
+
+      .app-title span.subtitle {
+        font-size: 11px;
+      }
+
+      .app-badge {
+        font-size: 10px;
+        padding: 3px 9px;
+      }
+
+      .left-panel,
+      .right-panel {
+        padding: 12px 10px 14px;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      }
+
+      .form-card {
+        padding: 12px 10px 10px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .form-group {
+        min-width: 100%;
+      }
+
+      input,
+      select,
+      textarea {
+        font-size: 13px;
+        padding: 8px 10px;
+      }
+
+      .btn,
+      .btn-ghost,
+      .btn-danger {
+        font-size: 12px;
+        padding: 7px 12px;
+      }
+
+      .search-bar {
+        flex-direction: row;
+      }
+
+      .tabs {
+        font-size: 11px;
+      }
+
+      .books-list {
+        max-height: none;       /* niente scroll interno, si scorre tutta la pagina */
+        overflow-y: visible;
+      }
+
+      .book-card {
+        padding: 9px 9px 8px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .genre-list {
+        max-height: 160px;
+      }
+
+      .backup-card {
+        padding: 9px 9px 8px;
+      }
+
+      textarea.backup-area {
+        min-height: 80px;
+      }
     }
   </style>
 </head>
@@ -977,7 +1081,7 @@
       </div>
       <div class="app-badge">
         <span class="app-badge-dot"></span>
-        <span>Dati salvati solo sul tuo PC</span>
+        <span>Dati salvati solo sul tuo dispositivo</span>
       </div>
     </header>
 
@@ -2034,7 +2138,7 @@
       if (splash) {
         setTimeout(() => {
           splash.classList.add("hidden");
-        }, 1300); // durata splash ~1,3s
+        }, 1300);
       }
     });
 
