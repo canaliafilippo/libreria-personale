@@ -835,9 +835,134 @@
       font-size: 11px;
       color: var(--text-soft);
     }
+
+    /* Splash screen */
+    .splash-overlay {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at top, rgba(201,168,107,0.22), transparent 55%),
+        radial-gradient(circle at bottom, rgba(0,0,0,0.85), transparent 60%),
+        #2B1D16;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 120;
+      color: #F5ECD9;
+      text-align: center;
+      transition: opacity 0.4s ease-out, visibility 0.4s ease-out;
+    }
+
+    .splash-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .splash-card {
+      background: rgba(20, 13, 9, 0.88);
+      border-radius: 26px;
+      padding: 22px 26px 20px;
+      border: 1px solid rgba(201,168,107,0.8);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.9);
+      max-width: 320px;
+      width: 86%;
+    }
+
+    .splash-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      margin: 0 auto 12px;
+      background: conic-gradient(from 210deg, #C9A86B, #6A7F94, #3E2C23, #C9A86B);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.9);
+      position: relative;
+    }
+
+    .splash-logo-inner {
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      background: #2B1D16;
+      border: 1px solid rgba(245,236,217,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+      font-size: 18px;
+      letter-spacing: 0.06em;
+    }
+
+    .splash-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 20px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .splash-subtitle {
+      font-size: 12px;
+      color: rgba(245,236,217,0.85);
+      margin-bottom: 14px;
+    }
+
+    .splash-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: rgba(245,236,217,0.75);
+    }
+
+    .splash-loader {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .splash-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #C9A86B;
+      box-shadow: 0 0 0 4px rgba(201,168,107,0.35);
+      animation: pulse-dot 1.2s infinite ease-out;
+    }
+
+    @keyframes pulse-dot {
+      0%   { transform: scale(1);   opacity: 1; }
+      50%  { transform: scale(1.35); opacity: 0.6; }
+      100% { transform: scale(1);   opacity: 1; }
+    }
   </style>
 </head>
 <body>
+  <!-- Splash screen -->
+  <div class="splash-overlay" id="splash">
+    <div class="splash-card">
+      <div class="splash-logo">
+        <div class="splash-logo-inner">ML</div>
+      </div>
+      <div class="splash-title">My Library</div>
+      <div class="splash-subtitle">
+        Organizza i tuoi libri, i costi, le letture e le recensioni in un’unica libreria personale.
+      </div>
+      <div class="splash-footer">
+        <span>ⓘ dati solo sul tuo dispositivo</span>
+        <div class="splash-loader">
+          <span class="splash-dot"></span>
+          <span>Caricamento…</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="app-shell">
     <header class="app-header">
       <div class="app-title">
@@ -1904,6 +2029,13 @@
       renderBooks();
       updateStats();
       updateCategoriesView();
+
+      const splash = document.getElementById("splash");
+      if (splash) {
+        setTimeout(() => {
+          splash.classList.add("hidden");
+        }, 1300); // durata splash ~1,3s
+      }
     });
 
     /* Registrazione service worker per PWA */
