@@ -1,7 +1,7 @@
 {
   "name": "Libreria personale",
   "short_name": "Libreria",
-  "start_url": "libreria_personale.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#3E2C23",
@@ -19,3 +19,4 @@
     }
   ]
 }
+
